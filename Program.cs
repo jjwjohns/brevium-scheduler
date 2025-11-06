@@ -2,6 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using BreviumScheduler.Models;
+using BreviumScheduler.Services;
+
 namespace BreviumScheduler
 {
     public class Program
@@ -17,25 +20,18 @@ namespace BreviumScheduler
                 return;
             }
 
-            // Configure HTTP client
-            _http.BaseAddress = new Uri("https://scheduling.interviews.brevium.com/");
+            var apiFacade = new ApiFacade(_http, apiKey);
 
-            try
-            {
-                var startResponse = await _http.PostAsync($"api/Scheduling/Start?token={apiKey}", null);
-                Console.WriteLine($"Start status: {(int)startResponse.StatusCode} {startResponse.ReasonPhrase}");
-
-                var scheduleResponse = await _http.GetAsync($"api/Scheduling/Schedule?token={apiKey}");
-                Console.WriteLine($"Schedule status: {(int)scheduleResponse.StatusCode} {scheduleResponse.ReasonPhrase}");
-
-                var body = await scheduleResponse.Content.ReadAsStringAsync();
-                Console.WriteLine("\n--- Response Body (first 500 chars) ---");
-                Console.WriteLine(body[..Math.Min(500, body.Length)]);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"\n Request failed: {ex.Message}");
-            }
+        try
+        {
+            await apiFacade.StartAsync();
+            var schedule = await apiFacade.GetScheduleAsync();
+            Console.WriteLine($"Got {schedule.Appointments.Count} appointments");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
         }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic;
 using System.Text.Json;
 using BreviumScheduler.Models;
+using System.Runtime.InteropServices;
 
 namespace BreviumScheduler.Services
 {
@@ -17,8 +18,15 @@ namespace BreviumScheduler.Services
         }
         public async Task StartAsync()
         {
-            // Implementation
-            throw new NotImplementedException();
+            try
+            {
+                var res = await _http.PostAsync($"api/Scheduling/Start?token={_apiKey}", null);
+                res.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Failed to start schedule: {ex.Message}", ex);
+            }
         }
 
         public async Task StopAsync()
@@ -34,8 +42,18 @@ namespace BreviumScheduler.Services
                 var res = await _http.GetAsync($"api/Scheduling/Schedule?token={_apiKey}");
                 res.EnsureSuccessStatusCode();
 
+                
                 var json = await res.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<Schedule>(json)!;
+
+                var appointments = JsonSerializer.Deserialize<List<AppointmentInfo>>(json,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (appointments == null || appointments.Count == 0)
+                {
+                    throw new Exception("No appointments found in the schedule response.");
+                }
+
+                return new Schedule { Appointments = appointments };
             }
             catch (HttpRequestException ex)
             {
