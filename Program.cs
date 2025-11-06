@@ -27,6 +27,8 @@ namespace BreviumScheduler
             await apiFacade.StartAsync();
             var schedule = await apiFacade.GetScheduleAsync();
             Console.WriteLine($"Got {schedule.Appointments.Count} appointments");
+            var finalSchedule = await apiFacade.StopAsync();
+            Console.WriteLine($"Final schedule has {finalSchedule.Appointments.Count} appointments");
         }
         catch (Exception ex)
         {
