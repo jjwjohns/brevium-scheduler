@@ -26,11 +26,11 @@ The program:
 
 ```mermaid
 erDiagram
-    PROGRAM ||--|| SCHEDULINGCOORDINATOR : "controls flow"
-    SCHEDULINGCOORDINATOR ||--|| SCHEDULINGRULES : "applies rules"
-    SCHEDULINGCOORDINATOR ||--|| APIFACADE : "uses API"
-    APIFACADE ||--|| ISCHEDULINGAPI : "implements"
-    APIFACADE ||--|| MODELS : "reads/writes data"
+    PROGRAM ||--|| SCHEDULINGCOORDINATOR : controls_flow
+    SCHEDULINGCOORDINATOR ||--|| SCHEDULINGRULES : applies_rules
+    SCHEDULINGCOORDINATOR ||--|| APIFACADE : uses_API
+    APIFACADE ||--|| ISCHEDULINGAPI : implements
+    APIFACADE ||--|| MODELS : reads_writes_data
 
     PROGRAM {
         void Main()
@@ -51,12 +51,11 @@ erDiagram
     }
 
     ISCHEDULINGAPI {
-        interface methods
+        interface_methods string
     }
 
     MODELS {
-        Appointment
-        AppointmentRequest
-        AppointmentCreate
+        string Appointment
+        string AppointmentRequest
+        string AppointmentCreate
     }
-
