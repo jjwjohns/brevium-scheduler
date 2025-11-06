@@ -8,6 +8,6 @@ public interface ISchedulingApi
     Task StartAsync();
     Task<Schedule> StopAsync();
     Task<Schedule> GetScheduleAsync();
-    Task<AppointmentInfoRequest?> GetNextRequestAsync();
+    Task<AppointmentRequest?> GetNextRequestAsync();
     Task PostAppointmentAsync(AppointmentInfoRequest appointment);
 }

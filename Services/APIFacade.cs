@@ -88,7 +88,7 @@ namespace BreviumScheduler.Services
             }
         }
 
-        public async Task<AppointmentInfoRequest?> GetNextRequestAsync()
+        public async Task<AppointmentRequest?> GetNextRequestAsync()
         {
             try
             {
@@ -104,7 +104,7 @@ namespace BreviumScheduler.Services
 
                 var json = await res.Content.ReadAsStringAsync();
 
-                var appointment = JsonSerializer.Deserialize<AppointmentInfoRequest>(json,
+                var appointment = JsonSerializer.Deserialize<AppointmentRequest>(json,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 return appointment;

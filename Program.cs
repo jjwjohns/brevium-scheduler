@@ -11,9 +11,10 @@ namespace BreviumScheduler
             {
                 throw new Exception("Missing API_KEY.");
             }
-            
-            var _apiFacade = new ApiFacade(new HttpClient(), apiKey);
-            var coordinator = new SchedulingCoordinator(_apiFacade);
+
+            var apiFacade = new ApiFacade(new HttpClient(), apiKey);
+            Console.WriteLine("Starting Scheduling Coordinator...");
+            var coordinator = new SchedulingCoordinator(apiFacade);
             await coordinator.ScheduleAppointmentsAsync(args);
         }
     }
