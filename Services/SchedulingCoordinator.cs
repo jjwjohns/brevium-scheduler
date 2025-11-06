@@ -9,14 +9,9 @@ namespace BreviumScheduler.Services
     {
         private readonly ApiFacade _apiFacade;
 
-        public SchedulingCoordinator()
+        public SchedulingCoordinator(ApiFacade apiFacade)
         {
-            var apiKey = Environment.GetEnvironmentVariable("API_KEY");
-            if (string.IsNullOrWhiteSpace(apiKey))
-            {
-                throw new Exception("Missing API_KEY.");
-            }
-            _apiFacade = new ApiFacade(new HttpClient(), apiKey);
+            _apiFacade = apiFacade;
         }
         public async Task ScheduleAppointmentsAsync(string[] args)
         {

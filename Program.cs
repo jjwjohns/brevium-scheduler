@@ -1,9 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using BreviumScheduler.Models;
-using BreviumScheduler.Services;
+﻿using BreviumScheduler.Services;
 
 namespace BreviumScheduler
 {
@@ -11,7 +6,14 @@ namespace BreviumScheduler
     {
         public static async Task Main(string[] args)
         {
-            var coordinator = new SchedulingCoordinator();
+            var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new Exception("Missing API_KEY.");
+            }
+            
+            var _apiFacade = new ApiFacade(new HttpClient(), apiKey);
+            var coordinator = new SchedulingCoordinator(_apiFacade);
             await coordinator.ScheduleAppointmentsAsync(args);
         }
     }
