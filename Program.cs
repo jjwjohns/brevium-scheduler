@@ -9,31 +9,10 @@ namespace BreviumScheduler
 {
     public class Program
     {
-        private static readonly HttpClient _http = new();
         public static async Task Main(string[] args)
         {
-            // Load API key
-            var apiKey = Environment.GetEnvironmentVariable("API_KEY");
-            if (string.IsNullOrWhiteSpace(apiKey))
-            {
-                Console.WriteLine("Missing API_KEY.");
-                return;
-            }
-
-            var apiFacade = new ApiFacade(_http, apiKey);
-
-        try
-        {
-            await apiFacade.StartAsync();
-            var schedule = await apiFacade.GetScheduleAsync();
-            Console.WriteLine($"Got {schedule.Appointments.Count} appointments");
-            var finalSchedule = await apiFacade.StopAsync();
-            Console.WriteLine($"Final schedule has {finalSchedule.Appointments.Count} appointments");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-        }
+            var coordinator = new SchedulingCoordinator();
+            await coordinator.ScheduleAppointmentsAsync(args);
         }
     }
 }
