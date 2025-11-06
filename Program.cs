@@ -1,3 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
-Console.WriteLine("This is a sample C# program.");
+﻿using System;
+using System.Threading.Tasks;
+
+
+namespace BreviumScheduler
+{
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            // Application entry point
+        }
+    }
+}

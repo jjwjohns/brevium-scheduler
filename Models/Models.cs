@@ -1,4 +1,4 @@
-namespace Brevium.Scheduler.Models
+namespace BreviumScheduler.Models
 {
     // model classes
 }

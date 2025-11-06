@@ -1,4 +1,4 @@
-namespace Brevium.Scheduler.Tests
+namespace BreviumScheduler.Tests
 {
     public class ProgramTest
     {

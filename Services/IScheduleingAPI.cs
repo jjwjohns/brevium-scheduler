@@ -1,4 +1,4 @@
-namespace Brevium.Scheduler.Services
+namespace BreviumScheduler.Services
 {
     public interface ISchedulingAPI
     {
