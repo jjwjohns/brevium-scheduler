@@ -7,13 +7,14 @@ namespace BreviumScheduler.Services
 {
     public class SchedulingCoordinator
     {
-        private readonly ApiFacade _apiFacade;
-        private SchedulingRules _schedulingRules = new SchedulingRules();
-        public Schedule _schedule = new Schedule();
-
-        public SchedulingCoordinator(ApiFacade apiFacade)
+        private readonly ISchedulingApi _apiFacade;
+        private Schedule _schedule = new Schedule();
+        private readonly ISchedulingRules _schedulingRules;
+        
+        public SchedulingCoordinator(ISchedulingApi apiFacade, ISchedulingRules schedulingRules)
         {
-            _apiFacade = apiFacade;
+            _apiFacade = apiFacade ?? throw new ArgumentNullException(nameof(apiFacade));
+            _schedulingRules = schedulingRules ?? throw new ArgumentNullException(nameof(schedulingRules));
         }
         public async Task ScheduleAppointmentsAsync(string[] args)
         {

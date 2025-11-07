@@ -4,7 +4,7 @@ using BreviumScheduler.Models;
 
 namespace BreviumScheduler.Services
 {
-    public class SchedulingRules
+    public class SchedulingRules : ISchedulingRules
     {
         private readonly DateTime start = new DateTime(2021, 11, 1, 8, 0, 0, DateTimeKind.Utc);
         private readonly DateTime end = new DateTime(2021, 12, 31, 16, 0, 0, DateTimeKind.Utc);

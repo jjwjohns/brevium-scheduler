@@ -14,7 +14,7 @@ namespace BreviumScheduler
 
             var apiFacade = new ApiFacade(new HttpClient(), apiKey);
             Console.WriteLine("Starting Scheduling Coordinator...");
-            var coordinator = new SchedulingCoordinator(apiFacade);
+            var coordinator = new SchedulingCoordinator(apiFacade, new SchedulingRules());
             await coordinator.ScheduleAppointmentsAsync(args);
         }
     }
