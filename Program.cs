@@ -4,7 +4,7 @@ namespace BreviumScheduler
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static async Task Main()
         {
             var apiKey = Environment.GetEnvironmentVariable("API_KEY");
             if (string.IsNullOrWhiteSpace(apiKey))
@@ -15,7 +15,7 @@ namespace BreviumScheduler
             var apiFacade = new ApiFacade(new HttpClient(), apiKey);
             Console.WriteLine("Starting Scheduling Coordinator...");
             var coordinator = new SchedulingCoordinator(apiFacade, new SchedulingRules());
-            await coordinator.ScheduleAppointmentsAsync(args);
+            await coordinator.ScheduleAppointmentsAsync();
         }
     }
 }

@@ -2,6 +2,6 @@ namespace BreviumScheduler.Tests
 {
     public class ProgramTest
     {
-        // test methods
+        // test TODO: add tests
     }
 }

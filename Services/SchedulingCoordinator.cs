@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using BreviumScheduler.Models;
 
@@ -10,13 +9,13 @@ namespace BreviumScheduler.Services
         private readonly ISchedulingApi _apiFacade;
         private Schedule _schedule = new Schedule();
         private readonly ISchedulingRules _schedulingRules;
-        
+
         public SchedulingCoordinator(ISchedulingApi apiFacade, ISchedulingRules schedulingRules)
         {
             _apiFacade = apiFacade ?? throw new ArgumentNullException(nameof(apiFacade));
             _schedulingRules = schedulingRules ?? throw new ArgumentNullException(nameof(schedulingRules));
         }
-        public async Task ScheduleAppointmentsAsync(string[] args)
+        public async Task ScheduleAppointmentsAsync()
         {
         try
         {
